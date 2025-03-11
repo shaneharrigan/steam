@@ -52,13 +52,6 @@ jobs:
           new_version=$(echo $latest_tag | awk -F. -v OFS=. '{$NF += 1 ; print}')
           echo "NEW_TAG=$new_version" >> $GITHUB_ENV
 
-      - name: Create Git Tag and Push
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-        run: |
-          git tag ${{ env.NEW_TAG }}
-          git push origin ${{ env.NEW_TAG }}
-
       - name: Package Release Files
         run: |
           mkdir release
