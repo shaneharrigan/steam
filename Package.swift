@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "steam",
+    platforms: [
+        .macOS(.v13)
+    ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
@@ -12,13 +15,18 @@ let package = Package(
             targets: ["steam"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/vapor/vapor.git", from: "18.7.5")
+        .package(url: "https://github.com/apple/swift-nio.git", from: "2.81.0"),
+        .package(url: "https://github.com/vapor/vapor.git", from: "4.113.2")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "steam"),
+            name: "steam",
+            dependencies: [
+                .product(name: "Vapor", package: "vapor"),
+                .product(name: "NIOConcurrencyHelpers", package: "swift-nio") // Use NIOConcurrencyHelpers
+            ]),
         .testTarget(
             name: "steamTests",
             dependencies: ["steam"]

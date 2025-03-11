@@ -1,0 +1,62 @@
+name: Release on Merge to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Swift
+        uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: "5.9"
+
+      - name: Run Swift Tests
+        run: swift test --enable-test-discovery
+
+  release:
+    name: Create Release
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Get Latest Tag
+        id: get_latest_tag
+        run: |
+          latest_tag=$(git describe --tags --abbrev=0 || echo "v1.0.0")
+          echo "Latest tag: $latest_tag"
+          echo "LATEST_TAG=$latest_tag" >> $GITHUB_ENV
+
+      - name: Increment Version
+        id: increment_version
+        run: |
+          latest_tag="${{ env.LATEST_TAG }}"
+          new_version=$(echo $latest_tag | awk -F. -v OFS=. '{$NF += 1 ; print}')
+          echo "New version: $new_version"
+          echo "NEW_TAG=$new_version" >> $GITHUB_ENV
+
+      - name: Create Git Tag
+        run: |
+          git tag ${{ env.NEW_TAG }}
+          git push origin ${{ env.NEW_TAG }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.NEW_TAG }}
+          name: "Release ${{ env.NEW_TAG }}"
+          body: "🚀 New release with the latest changes merged into main!"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
