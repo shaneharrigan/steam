@@ -45,7 +45,7 @@ public struct MockRoute: Codable {
         case response
     }
 
-    init(httpMethod: HTTPMethod, path: String, response: MockResponse) {
+    public init(httpMethod: HTTPMethod, path: String, response: MockResponse) {
         self.httpMethod = httpMethod
         self.path = path
         self.response = response
