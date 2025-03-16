@@ -1,9 +1,9 @@
-# Steam 🚀
-[![Swift Package Manager](https://img.shields.io/badge/SPM-compatible-green)](https://github.com/shaneharrigan/Steam)
+# steam 🚀
+[![Swift Package Manager](https://img.shields.io/badge/SPM-compatible-green)](https://github.com/shaneharrigan/steam)
 [![Vapor](https://img.shields.io/badge/Vapor-4.0-blue)](https://vapor.codes)
-[![License](https://img.shields.io/github/license/shaneharrigan/Steam)](https://github.com/shaneharrigan/Steam/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/shaneharrigan/steam)](https://github.com/shaneharrigan/steam/blob/main/LICENSE)
 
-**Steam** is a **powerful API mocking library for Vapor Swift**. It allows developers to **mock API routes**, **simulate network conditions**, and **test requests without hitting a real backend**.
+**steam** is a **powerful API mocking library for Vapor Swift**. It allows developers to **mock API routes**, **simulate network conditions**, and **test requests without hitting a real backend**.
 
 ## 🚀 Features
 ✅ **Mock API Responses** – Define API endpoints and return custom responses.  
@@ -15,19 +15,19 @@
 ---
 
 ## 📦 Installation
-Steam is available via **Swift Package Manager (SPM)**.
+steam is available via **Swift Package Manager (SPM)**.
 
 ### **1. Add to `Package.swift`**
 ```swift
 dependencies: [
-    .package(url: "https://github.com/shaneharrigan/Steam.git", from: "1.0.0")
+    .package(url: "https://github.com/shaneharrigan/steam.git", from: "1.0.0")
 ]
 ```
 
 ### **2. Import and Use in Your Vapor Project**
 ```swift
 import Vapor
-import Steam
+import steam
 
 func configure(_ app: Application) throws {
     let mockMiddleware = MockMiddleware(routes: [
@@ -114,12 +114,12 @@ app.middleware.use(mockMiddleware)
 ---
 
 ## 🛠 Usage Example
-### **Basic Vapor Application with Steam Mocking**
-Here’s how you can set up **Steam** in a Vapor application:
+### **Basic Vapor Application with steam Mocking**
+Here’s how you can set up **steam** in a Vapor application:
 
 ```swift
 import Vapor
-import Steam
+import steam
 
 let app = Application()
 
@@ -140,7 +140,7 @@ app.get("mocked-endpoint") { req in
 try app.run()
 ```
 
-When you send a `GET` request to `http://localhost:8080/mocked-endpoint`, Steam will **intercept the request** and return:
+When you send a `GET` request to `http://localhost:8080/mocked-endpoint`, steam will **intercept the request** and return:
 ```json
 {
   "message": "This is a mocked response"
@@ -149,14 +149,14 @@ When you send a `GET` request to `http://localhost:8080/mocked-endpoint`, Steam 
 
 ---
 
-## 🛠️ Testing with Steam
-Steam integrates **seamlessly** with `XCTVapor` and Swift Testing.
+## 🛠️ Testing with steam
+steam integrates **seamlessly** with `XCTVapor` and Swift Testing.
 
 ### **✅ Example Test Case**
 ```swift
 import Testing
 import Vapor
-@testable import Steam
+@testable import steam
 
 @Test
 func testMockMiddleware() async throws {
@@ -197,13 +197,13 @@ We welcome contributions! To get started:
 
 ## 📢 Community & Support
 💬 **Join the discussion on the official Vapor Discord:** [Vapor Discord](https://discord.com/invite/vapor)  
-📣 **Submit issues & feature requests:** [GitHub Issues](https://github.com/shaneharrigan/Steam/issues)  
+📣 **Submit issues & feature requests:** [GitHub Issues](https://github.com/shaneharrigan/steam/issues)  
 
 ---
 
 ## ⚖️ License
-**Steam** is open-source under the [MIT License](https://github.com/shaneharrigan/Steam/blob/main/LICENSE).
+**steam** is open-source under the [MIT License](https://github.com/shaneharrigan/steam/blob/main/LICENSE).
 
 ---
 
-### 🚀 **Happy Coding with Steam!** 🚀
+### 🚀 **Happy Coding with steam!** 🚀
