@@ -32,12 +32,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Ensures all tags are fetched
-
+    
       - name: Configure Git
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git fetch --tags  # Ensure all tags are available
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/shaneharrigan/steam.git
 
       - name: Get Latest Tag
         id: get_latest_tag
@@ -76,3 +76,4 @@ jobs:
           gh release create ${{ env.NEW_TAG }} release.zip \
             --generate-notes \
             --title "Version ${{ env.NEW_TAG }}"
+
