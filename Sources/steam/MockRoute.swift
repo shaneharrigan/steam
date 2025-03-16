@@ -14,15 +14,18 @@ public struct MockRoute: Codable {
     public struct MockResponse: Codable {
         let status: HTTPResponseStatus
         let body: String?
+        public let delaySeconds: Double?
 
         enum CodingKeys: String, CodingKey {
             case status
             case body
+            case delaySeconds = "delay"
         }
 
-        init(status: HTTPResponseStatus, body: String? = nil) {
+        init(status: HTTPResponseStatus, body: String? = nil, delaySeconds: Double? = nil) {
             self.status = status
             self.body = body
+            self.delaySeconds = delaySeconds
         }
 
         public init(from decoder: Decoder) throws {
@@ -30,6 +33,7 @@ public struct MockRoute: Codable {
             let statusCode = try container.decode(Int.self, forKey: .status)
             self.status = HTTPResponseStatus(statusCode: statusCode)
             self.body = try container.decodeIfPresent(String.self, forKey: .body)
+            self.delaySeconds = try container.decodeIfPresent(Double.self, forKey: .delaySeconds)
         }
 
         public func encode(to encoder: Encoder) throws {
