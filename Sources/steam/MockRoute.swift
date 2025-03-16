@@ -22,7 +22,7 @@ public struct MockRoute: Codable {
             case delaySeconds = "delay"
         }
 
-        init(status: HTTPResponseStatus, body: String? = nil, delaySeconds: Double? = nil) {
+        public init(status: HTTPResponseStatus, body: String? = nil, delaySeconds: Double? = nil) {
             self.status = status
             self.body = body
             self.delaySeconds = delaySeconds
