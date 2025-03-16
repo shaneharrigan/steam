@@ -26,7 +26,8 @@ func testMockMiddleware() async throws {
                 path: "/api/login",
                 response: MockRoute.MockResponse(
                     status: .unauthorized,
-                    body: nil
+                    body: nil,
+                    delaySeconds: 1.5
                 )
             )
         ]

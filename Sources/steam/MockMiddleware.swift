@@ -22,7 +22,15 @@ public final class MockMiddleware: Middleware, @unchecked Sendable {
                 $0.httpMethod == request.method && $0.path == request.url.path
             }) {
                 let response = createResponse(from: mockRoute.response, for: request)
-                return request.eventLoop.makeSucceededFuture(response)
+                
+                if let delaySeconds = mockRoute.response.delaySeconds {
+                    return request.eventLoop.scheduleTask(in: .milliseconds(Int64(delaySeconds*1000))) {
+                        response
+                    }.futureResult
+                }  else {
+                    return request.eventLoop.makeSucceededFuture(response)
+                }
+                
             }
             return next.respond(to: request)
         }
